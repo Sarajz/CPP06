@@ -6,7 +6,7 @@
 /*   By: sarajime <sarajime@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 19:00:02 by sarajime          #+#    #+#             */
-/*   Updated: 2025/09/11 21:14:21 by sarajime         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:40:26 by sarajime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,24 @@ static void printDouble(double value)
 }
 
 void ScalarConverter::convert(const std::string& str)
-{
-	char* endPtr = NULL;
-	double value = std::strtod(str.c_str(), &endPtr);
-
-	if (endPtr == str.c_str() || (*endPtr != '\0' && *endPtr != 'f'))
+{	
+	double value;
+	
+	if (str.length() == 1 && std::isprint(str[0]))
+		value = static_cast<double>(str[0]);
+	else
 	{
-		std::cout << "char: impossible" << std::endl;
-		std::cout << "int: impossible" << std::endl;
-		std::cout << "float: impossible" << std::endl;
-		std::cout << "double: impossible" << std::endl;
-		return;
+		char* endPtr = NULL;
+		value = std::strtod(str.c_str(), &endPtr);
+
+		if (endPtr == str.c_str() || (*endPtr != '\0' && *endPtr != 'f'))
+		{
+			std::cout << "char: impossible" << std::endl;
+			std::cout << "int: impossible" << std::endl;
+			std::cout << "float: impossible" << std::endl;
+			std::cout << "double: impossible" << std::endl;
+			return;
+		}
 	}
 
 	printChar(value);
